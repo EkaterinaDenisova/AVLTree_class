@@ -13,9 +13,9 @@ template <typename T>
 class AVLTree
 {
 private:
-	// указатели на корень и на текущий узел
+	// указатели на корень 
 	AVLTreeNode<T>* root;
-	AVLTreeNode<T>* current;
+	//AVLTreeNode<T>* current;
 
 	// число элементов дерева 
 	int size;
@@ -29,10 +29,10 @@ public:
 
 
 	// конструктор копирования
-	AVLTree(const AVLTree<T>& tree);
+	//AVLTree(const AVLTree<T>& tree);
 
 	// оператор копирования (присваивания)
-	AVLTree<T>& operator= (const AVLTree<T>& rhs);
+	//AVLTree<T>& operator= (const AVLTree<T>& rhs);
 
 	// деструктор
 	~AVLTree() { deleteTree(this->root); }
@@ -44,20 +44,20 @@ public:
 	// либо -1, если узла с таким значением в дереве нет
 	int Find(const T& item);
 
-	void UpdateLeftTree(AVLTreeNode<T>*& p,
+	/*void UpdateLeftTree(AVLTreeNode<T>*& p,
 		int reviseBalanceFactor);
 
 	void UpdateRightTree(AVLTreeNode<T>*& p,
-		int reviseBalanceFactor);
+		int reviseBalanceFactor);*/
 
 
-	void AVLInsert(AVLTreeNode<T>* tree,
+	/*void AVLInsert(AVLTreeNode<T>* tree,
 		AVLTreeNode<T>* newNode, int& reviseBalanceFactor);
 
 	void SingleRotateRight(AVLTreeNode<T>*& p);
 	void SingleRotateLeft(AVLTreeNode<T>*& p);
 	void DoubleRotateRight(AVLTreeNode<T>*& p);
-	void DoubleRotateLeft(AVLTreeNode<T>*& p);
+	void DoubleRotateLeft(AVLTreeNode<T>*& p);*/
 
 	void Insert(const T& item);
 	void Delete(const T& item);
@@ -92,7 +92,7 @@ AVLTree<T>::AVLTree(AVLTreeNode<T>* tree)
 }
 
 // конструктор копирования
-template <typename T>
+/*template <typename T>
 AVLTree<T>::AVLTree(const AVLTree<T>& tree)
 {
 	this->root = CopyTree(tree.root);
@@ -100,11 +100,11 @@ AVLTree<T>::AVLTree(const AVLTree<T>& tree)
 	// присвоить текущему указателю значение корня и задать размер дерева
 	this->current = this->root;
 	this->size = tree.size;
-}
+}*/
 
 
 // оператор копирования (присваивания)
-template <class T>
+/*template <class T>
 AVLTree<T>& AVLTree<T>::operator= (const AVLTree<T>& rhs)
 {
 	// нельзя копировать дерево в само себя
@@ -123,7 +123,7 @@ AVLTree<T>& AVLTree<T>::operator= (const AVLTree<T>& rhs)
 
 	// возвратить ссылку на текущий объект
 	return *this;
-}
+}*/
 
 // очистка дерева
 template <typename T>
@@ -162,9 +162,16 @@ AVLTreeNode<T>* AVLTree<T>::GetRoot()
 	return this->root;
 }
 
+template <class T>
+void AVLTree<T>::Insert(const T& item)
+{
+	this->root = InsertNode(this->root, item);
+	size = treeCount(this->root);
+}
 
 
 
+/*
 // выполнить поворот по часовой стрелке вокруг узла р.
 // сделать lс новой точкой вращения
 template <class T>
@@ -415,7 +422,7 @@ void AVLTree<T>::Insert(const T& item)
 	this->root = treeRoot;
 	this->current = newNode;
 	this->size++;
-}
+}*/
 
 // вставка узла
 /*template<class T>

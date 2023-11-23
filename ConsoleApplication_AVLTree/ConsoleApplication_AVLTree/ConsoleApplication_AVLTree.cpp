@@ -49,8 +49,13 @@ int main()
 
     AVLTree<int> avltree1;
     avltree1.Insert(5);
+    avltree1.Insert(10);
+    avltree1.Insert(15);
 
     cout << avltree1.GetRoot()->Data();
+    //cout << avltree1.GetRoot()->Right()->Data();
+
+
 
 }
 
