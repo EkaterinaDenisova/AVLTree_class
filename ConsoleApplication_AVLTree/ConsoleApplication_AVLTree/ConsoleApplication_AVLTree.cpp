@@ -50,12 +50,58 @@ int main()
     AVLTree<int> avltree1;
     avltree1.Insert(5);
     avltree1.Insert(10);
+
+    cout << "\n" << avltree1.Find(5) << "\n";
+
     avltree1.Insert(15);
+    // 5                        10
+    //  \                      / \
+    //   10      --------->   5   15
+    //    \
+    //     15
 
     cout << avltree1.GetRoot()->Data();
-    //cout << avltree1.GetRoot()->Right()->Data();
+    cout << " " << avltree1.GetRoot()->Left()->Data();
+    cout << " " << avltree1.GetRoot()->Right()->Data();
+
+    cout << "\n" << avltree1.Find(5);
 
 
+    //      10                              10
+    //     /  \                            / \
+    //    5   15                          4   15
+    //   /           -------->           / \    
+    //  4                               3   5    
+    // /
+    //3
+
+    avltree1.Insert(4);
+    avltree1.Insert(3);
+
+    cout << "\n" << avltree1.GetRoot()->Data();
+    cout << " " << avltree1.GetRoot()->Left()->Data();
+    cout << " " << avltree1.GetRoot()->Right()->Data();
+    cout << " " << avltree1.GetRoot()->Left()->Left()->Data();
+    cout << " " << avltree1.GetRoot()->Left()->Right()->Data();
+
+
+    cout << "\n" << avltree1.Find(5) << "\n";
+
+
+    avltree1.Delete(3);
+    cout << avltree1.GetRoot()->Left()->Data(); // 4
+
+    avltree1.Delete(15);
+
+    //          10                      10                        5
+    //         /                       /                         / \
+    //        4        -------->      5      ---------->        4   10
+    //         \                     /
+    //          5                   4
+    
+    cout <<"\n" << avltree1.GetRoot()->Data();
+    cout << " " << avltree1.GetRoot()->Left()->Data();
+    cout << " " << avltree1.GetRoot()->Right()->Data();
 
 }
 

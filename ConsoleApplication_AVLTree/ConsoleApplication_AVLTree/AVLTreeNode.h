@@ -194,8 +194,8 @@ AVLTreeNode<T>* RebalanceTree(AVLTreeNode<T>* root) {
 		// левый поворот для корня текущего дерева (поддерева)
 		return SingleRotateLeft(root);
 	}
-
-
+	// если балансировка не нужна
+	return root;
 }
 
 // операция вставки узла в AVL-дерево
@@ -225,7 +225,76 @@ AVLTreeNode<T>* InsertNode(AVLTreeNode<T>* root, const T value) {
 	return RebalanceTree(root);
 }
 
+// опрерация удаления узла из дерева
+// операция удаления узла из бинарного дерева поиска
+template <typename T>
+AVLTreeNode<T>* DeleteNode(AVLTreeNode<T>* root, const T value) {
 
+	// базовый случай
+	if (root == nullptr) {
+		return root;
+	}
+
+	// рекурсивный вызов функции, пока не будет найден узел, который нужно удалить
+	if (root->Data() > value) {
+		root->SetLeft(DeleteNode(root->Left(), value));
+		return RebalanceTree(root);
+	}
+	else if (root->Data() < value) {
+		root->SetRight(DeleteNode(root->Right(), value));
+		return RebalanceTree(root);
+	}
+	else { // Когда найден узел на удаление
+		
+
+		// Случаи 1 и 2. если есть только 1 потомок или удалить необходимо лист (0 потомков)
+		// если нет левого потомка, то правый поднимается на место удаляемого узла
+		if (root->Left() == nullptr) {
+			AVLTreeNode<T>* temp = root->Right();
+			delete root;
+			return RebalanceTree(temp);
+		}
+		// если нет правого потомка, то левый поднимается на место удаляемого узла
+		else if (root->Right() == nullptr) {
+			AVLTreeNode<T>* temp = root->Left();
+			delete root;
+			return RebalanceTree(temp);
+		}
+
+		// Случай 3. если есть оба потомка
+		else {
+
+			// узел, который является родителем ближайшего наибольшего
+			AVLTreeNode<T>* succParent = root;
+
+			// Находим ближайшее наибольшее (самый левый узел в правом поддереве) и его родителя
+			AVLTreeNode<T>* succ = root->Right();
+			while (succ->Left() != nullptr) {
+				succParent = succ;
+				succ = succ->Left();
+			}
+
+
+			// задача сводится к случаю удаления узла только с правым потомком
+			// правого потомка ближайшего наибольшего делаем левым потомком родителя
+			// ближайшего наибольшего
+
+			if (succParent != root)
+				succParent->SetLeft(succ->Right());
+			else
+				// если спуска по левому поддереву не было
+				succParent->SetRight(succ->Right());
+
+
+			// данные из ближайшего наибольшего переносятся на место удаляемого узла
+			root->SetData(succ->Data());
+
+			// Удаляем ближайшее наибольшее
+			delete succ;
+			return RebalanceTree(root);
+		}
+	}
+}
 
 
 

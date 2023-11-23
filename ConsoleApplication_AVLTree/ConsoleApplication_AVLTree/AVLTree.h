@@ -78,7 +78,7 @@ template <typename T>
 AVLTree<T>::AVLTree()
 {
 	this->root = nullptr;
-	this->current = nullptr;
+	//this->current = nullptr;
 	this->size = 0;
 }
 
@@ -87,7 +87,7 @@ template <typename T>
 AVLTree<T>::AVLTree(AVLTreeNode<T>* tree)
 {
 	this->root = CopyTree(tree);
-	this->current = nullptr;
+	//this->current = nullptr;
 	this->size = treeCount(this->root);
 }
 
@@ -130,7 +130,7 @@ template <typename T>
 void AVLTree<T>::ClearList() {
 	deleteTree(this->root);
 	this->root = nullptr;
-	this->current = nullptr;
+	//this->current = nullptr;
 	this->size = 0;
 }
 
@@ -166,6 +166,13 @@ template <class T>
 void AVLTree<T>::Insert(const T& item)
 {
 	this->root = InsertNode(this->root, item);
+	size = treeCount(this->root);
+}
+
+template <class T>
+void AVLTree<T>::Delete(const T& item)
+{
+	this->root = DeleteNode(this->root, item);
 	size = treeCount(this->root);
 }
 
